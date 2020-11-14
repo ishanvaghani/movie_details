@@ -61,8 +61,4 @@ interface MovieApi {
 
     @GET("search/multi?api_key=$API_KEY")
     suspend fun getSearch(@Query("query")query: String): Response<MovieResponse>
-
-    //authentication
-    @GET("authentication/guest_session/new?api_key=$API_KEY")
-    suspend fun getGuestSessionId(): Response<Guest>
 }

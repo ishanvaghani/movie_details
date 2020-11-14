@@ -37,7 +37,4 @@ class ApiBuilder @Inject constructor(private val movieApi: MovieApi) {
     suspend fun getTvShowDetails(tvShowId: Int): Response<TvShowDetails> = movieApi.getTvShowDetails(tvShowId)
 
     suspend fun getSearch(query: String): Response<MovieResponse> = movieApi.getSearch(query)
-
-    //authentication
-    suspend fun getGuestSessionId(): Response<Guest> = movieApi.getGuestSessionId()
 }

@@ -25,7 +25,6 @@ import com.example.moviedetails.ViewModel.MovieViewModel
 import com.example.moviedetails.ViewModel.TvShowViewModel
 import com.example.moviedetails.collapse
 import com.example.moviedetails.databinding.FragmentTvshowDetailsBinding
-import com.example.moviedetails.databinding.RateLayoutBinding
 import com.example.moviedetails.expand
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.collections.ArrayList
@@ -132,16 +131,6 @@ class TvShowDetailsFragment : Fragment() {
                 findNavController().navigate(action)
             }
         }
-    }
-
-    private fun showRateDialog(container: ViewGroup) {
-        val rateDialog = AlertDialog.Builder(context).create()
-        val rateBinding = RateLayoutBinding.inflate(LayoutInflater.from(context), container, false)
-        rateDialog.setView(rateBinding.root)
-        rateBinding.rateButton.setOnClickListener {
-
-        }
-        rateDialog.show()
     }
 
     private fun showData() {

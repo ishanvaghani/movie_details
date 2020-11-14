@@ -1,16 +1,9 @@
 package com.example.moviedetails.UI.Fragment
 
-import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.content.Context
-import android.content.Context.MODE_APPEND
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
@@ -24,12 +17,10 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.moviedetails.API.MovieApi
 import com.example.moviedetails.Adapter.SecondMovieAdapter
 import com.example.moviedetails.Model.MovieDetails
-import com.example.moviedetails.Model.Rate
 import com.example.moviedetails.R
 import com.example.moviedetails.ViewModel.MovieViewModel
 import com.example.moviedetails.collapse
 import com.example.moviedetails.databinding.FragmentMovieDetailsBinding
-import com.example.moviedetails.databinding.RateLayoutBinding
 import com.example.moviedetails.expand
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.NumberFormat

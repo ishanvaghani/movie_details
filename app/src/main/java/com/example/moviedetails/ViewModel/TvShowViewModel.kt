@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.moviedetails.Model.Guest
 import com.example.moviedetails.Model.Movie
 import com.example.moviedetails.Model.TvShowDetails
 import com.example.moviedetails.Model.Video
