@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/movieDetailsFragment"
-        android:name="com.example.moviedetails.UI.Fragment.MovieDetailsFragment"
+        android:name="com.example.reviewz.UI.Fragment.MovieDetailsFragment"
         android:label="{title}"
-        tools:layout="@layout/fragment_movie_details" >
+        tools:layout="@layout/fragment_movie_details">
         <argument
             android:name="movieId"
             app:argType="integer" />
@@ -18,68 +18,107 @@
             app:argType="string" />
         <action
             android:id="@+id/action_movieDetailsFragment_self"
-            app:destination="@id/movieDetailsFragment" />
+            app:destination="@id/movieDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_movieDetailsFragment_to_videoActivity"
-            app:destination="@id/videoActivity" />
+            app:destination="@id/videoActivity"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.moviedetails.UI.Fragment.MovieFragment"
+        android:name="com.example.reviewz.UI.Fragment.MovieFragment"
         android:label="Movie Details"
         tools:layout="@layout/fragment_movie">
         <action
             android:id="@+id/action_homeFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment"
-            app:popUpToInclusive="false" />
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_homeFragment_to_viewAllFragment"
-            app:destination="@id/viewAllFragment" />
+            app:destination="@id/viewAllFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/viewAllFragment"
-        android:name="com.example.moviedetails.UI.Fragment.ViewAllFragment"
+        android:name="com.example.reviewz.UI.Fragment.ViewAllFragment"
         android:label="{type}"
-        tools:layout="@layout/fragment_view_all" >
+        tools:layout="@layout/fragment_view_all">
         <action
             android:id="@+id/action_viewAllFragment_to_movieDetailsFragment"
-            app:destination="@id/movieDetailsFragment" />
+            app:destination="@id/movieDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="type"
             app:argType="string" />
         <action
             android:id="@+id/action_viewAllFragment_to_tvShowDetailsFragment"
-            app:destination="@id/tvShowDetailsFragment" />
+            app:destination="@id/tvShowDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.moviedetails.UI.Fragment.SearchFragment"
+        android:name="com.example.reviewz.UI.Fragment.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_searchFragment_to_tvShowDetailsFragment"
-            app:destination="@id/tvShowDetailsFragment" />
+            app:destination="@id/tvShowDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_searchFragment_to_movieDetailsFragment"
-            app:destination="@id/movieDetailsFragment" />
+            app:destination="@id/movieDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/tvShowFragment"
-        android:name="com.example.moviedetails.UI.Fragment.TvShowFragment"
+        android:name="com.example.reviewz.UI.Fragment.TvShowFragment"
         android:label="fragment_tv_show"
-        tools:layout="@layout/fragment_tv_show" >
+        tools:layout="@layout/fragment_tv_show">
         <action
             android:id="@+id/action_tvShowFragment_to_viewAllFragment"
-            app:destination="@id/viewAllFragment" />
+            app:destination="@id/viewAllFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_tvShowFragment_to_tvShowDetailsFragment"
-            app:destination="@id/tvShowDetailsFragment" />
+            app:destination="@id/tvShowDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <activity
         android:id="@+id/videoActivity"
-        android:name="com.example.moviedetails.UI.VideoActivity"
+        android:name="com.example.reviewz.UI.VideoActivity"
         android:label="activity_video"
-        tools:layout="@layout/activity_video" >
+        tools:layout="@layout/activity_video">
         <argument
             android:name="id"
             app:argType="integer" />
@@ -89,7 +128,7 @@
     </activity>
     <fragment
         android:id="@+id/tvShowDetailsFragment"
-        android:name="com.example.moviedetails.UI.Fragment.TvShowDetailsFragment"
+        android:name="com.example.reviewz.UI.Fragment.TvShowDetailsFragment"
         android:label="fragment_tvshow_details"
         tools:layout="@layout/fragment_tvshow_details">
 
@@ -101,10 +140,18 @@
             app:argType="string" />
         <action
             android:id="@+id/action_tvShowDetailsFragment_to_videoActivity"
-            app:destination="@id/videoActivity" />
+            app:destination="@id/videoActivity"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_tvShowDetailsFragment_self"
-            app:destination="@id/tvShowDetailsFragment" />
+            app:destination="@id/tvShowDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
 
     </fragment>
 </navigation>

@@ -60,15 +60,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
-            android:gravity="bottom"
-            android:layout_gravity="center"
             android:orientation="horizontal">
 
             <TextView
@@ -98,8 +97,8 @@
             android:id="@+id/exo_progress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_gravity="center"
+            android:layout_marginTop="8dp"
             app:buffered_color="#95989F"
             app:played_color="@color/purple_500"
             app:unplayed_color="#45424E" />

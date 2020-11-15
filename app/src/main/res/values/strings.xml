@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Movie Details</string>
+    <string name="app_name">ReviewZ</string>
     <string name="popular">Popular</string>
     <string name="view_all">View all</string>
     <string name="top_rated">Top Rated</string>
@@ -31,4 +31,5 @@
     <string name="search_something">Search something</string>
     <string name="seasons">Seasons</string>
     <string name="submit">Submit</string>
+    <string name="retry">Retry</string>
 </resources>
