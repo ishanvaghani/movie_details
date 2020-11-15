@@ -11,11 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.paging.LoadState
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.reviewz.API.MovieApi
-import com.example.reviewz.Adapter.SecondMovieAdapter
+import com.example.reviewz.Adapter.MovieAdapter
 import com.example.reviewz.Model.MovieDetails
 import com.example.reviewz.R
 import com.example.reviewz.ViewModel.MovieViewModel
@@ -35,7 +36,7 @@ class MovieDetailsFragment : Fragment() {
     private val args: MovieDetailsFragmentArgs by navArgs()
     private val movieViewModel: MovieViewModel by viewModels()
 
-    private lateinit var secondMovieAdapter: SecondMovieAdapter
+    private lateinit var similarAdapter: MovieAdapter
     private lateinit var toolbar: Toolbar
 
     override fun onCreateView(
@@ -50,13 +51,13 @@ class MovieDetailsFragment : Fragment() {
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
         (activity as AppCompatActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        secondMovieAdapter = SecondMovieAdapter(this, true)
+        similarAdapter = MovieAdapter(this, true)
 
         movieViewModel.apply {
             readyMovieDetails(args.movieId)
             getMovieDetails().observe(viewLifecycleOwner, {
                 if (it != null) {
-                    bindWithUi(it, container!!)
+                    bindWithUi(it)
                     showData()
                 } else {
                     showError()
@@ -64,14 +65,14 @@ class MovieDetailsFragment : Fragment() {
             })
 
             movieViewModel.similarMovies(args.movieId).observe(viewLifecycleOwner) {
-                secondMovieAdapter.submitData(viewLifecycleOwner.lifecycle, it)
-                binding.recyclerView.scheduleLayoutAnimation()
+                similarAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+                binding.similarRecyclerView.scheduleLayoutAnimation()
             }
         }
         return binding.root
     }
 
-    private fun bindWithUi(movieDetails: MovieDetails, container: ViewGroup) {
+    private fun bindWithUi(movieDetails: MovieDetails) {
         binding.apply {
             movieTitle.text = movieDetails.title
             movieTagline.text = movieDetails.tagline
@@ -92,10 +93,9 @@ class MovieDetailsFragment : Fragment() {
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(poster)
 
-            recyclerView.apply {
+            similarRecyclerView.apply {
                 setHasFixedSize(true)
-                layoutManager = GridLayoutManager(context, 3)
-                adapter = secondMovieAdapter
+                adapter = similarAdapter
             }
 
             expandButton.setOnClickListener {
@@ -116,6 +116,20 @@ class MovieDetailsFragment : Fragment() {
                         )
                     )
                 findNavController().navigate(action)
+            }
+        }
+
+        similarAdapter.addLoadStateListener { loadState ->
+            binding.apply {
+                progressBar.isVisible = loadState.source.refresh is LoadState.Loading
+                linearLayout.isVisible = loadState.source.refresh is LoadState.NotLoading
+                errorText.isVisible = loadState.source.refresh is LoadState.Error
+
+                //empty view
+                if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && similarAdapter.itemCount < 1) {
+                    viewSimilar.isVisible = false
+                    textSimilar.isVisible = false
+                }
             }
         }
     }

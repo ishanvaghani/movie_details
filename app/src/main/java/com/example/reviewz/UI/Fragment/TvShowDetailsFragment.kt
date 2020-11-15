@@ -11,12 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.paging.LoadState
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.reviewz.API.MovieApi
+import com.example.reviewz.Adapter.MovieAdapter
 import com.example.reviewz.Adapter.SeasonAdapter
-import com.example.reviewz.Adapter.SecondMovieAdapter
 import com.example.reviewz.Model.TvShowDetails
 import com.example.reviewz.R
 import com.example.reviewz.ViewModel.TvShowViewModel
@@ -35,7 +36,7 @@ class TvShowDetailsFragment : Fragment() {
     private val args: TvShowDetailsFragmentArgs by navArgs()
     private val tvShowViewModel: TvShowViewModel by viewModels()
 
-    private lateinit var similarAdapter: SecondMovieAdapter
+    private lateinit var similarAdapter: MovieAdapter
     private lateinit var seasonAdapter: SeasonAdapter
     private lateinit var toolbar: Toolbar
 
@@ -51,7 +52,7 @@ class TvShowDetailsFragment : Fragment() {
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
         (activity as AppCompatActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        similarAdapter = SecondMovieAdapter(this, false)
+        similarAdapter = MovieAdapter(this, false)
 
         tvShowViewModel.apply {
             readyTvShowDetails(args.tvShowId)
@@ -96,7 +97,6 @@ class TvShowDetailsFragment : Fragment() {
 
             similarRecyclerView.apply {
                 setHasFixedSize(true)
-                layoutManager = GridLayoutManager(context, 3)
                 adapter = similarAdapter
             }
 
@@ -122,6 +122,20 @@ class TvShowDetailsFragment : Fragment() {
                         getString(R.string.tv_show)
                     )
                 findNavController().navigate(action)
+            }
+        }
+
+        similarAdapter.addLoadStateListener { loadState ->
+            binding.apply {
+                progressBar.isVisible = loadState.source.refresh is LoadState.Loading
+                linearLayout.isVisible = loadState.source.refresh is LoadState.NotLoading
+                errorText.isVisible = loadState.source.refresh is LoadState.Error
+
+                //empty view
+                if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && similarAdapter.itemCount < 1) {
+                    viewSimilar.isVisible = false
+                    textSimilar.isVisible = false
+                }
             }
         }
     }

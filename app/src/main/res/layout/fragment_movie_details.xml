@@ -48,7 +48,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -262,6 +262,7 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/viewSimilar"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginStart="10dp"
@@ -270,6 +271,7 @@
                 android:background="@android:color/darker_gray" />
 
             <TextView
+                android:id="@+id/textSimilar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -278,12 +280,13 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <com.example.reviewz.GridRecyclerView
-                android:id="@+id/recyclerView"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/similar_recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:layoutAnimation="@anim/layout_grid_animation"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -292,6 +295,6 @@
 
         </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

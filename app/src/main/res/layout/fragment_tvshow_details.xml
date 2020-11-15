@@ -293,12 +293,14 @@
                 tools:listitem="@layout/movie_item" />
 
             <View
+                android:id="@+id/viewSimilar"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_margin="10dp"
                 android:background="@android:color/darker_gray" />
 
             <TextView
+                android:id="@+id/textSimilar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -307,17 +309,18 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <com.example.reviewz.GridRecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/similar_recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:layoutAnimation="@anim/layout_grid_animation"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/second_movie_item" />
+                tools:listitem="@layout/movie_item" />
 
         </LinearLayout>
 
