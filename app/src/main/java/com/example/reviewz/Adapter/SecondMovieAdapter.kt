@@ -12,9 +12,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.reviewz.API.MovieApi
 import com.example.reviewz.Model.Movie
 import com.example.reviewz.R
-import com.example.reviewz.UI.Fragment.MovieDetailsFragmentDirections
 import com.example.reviewz.UI.Fragment.SearchFragmentDirections
-import com.example.reviewz.UI.Fragment.TvShowDetailsFragmentDirections
 import com.example.reviewz.UI.Fragment.ViewAllFragmentDirections
 import com.example.reviewz.databinding.SecondMovieItemBinding
 
@@ -78,25 +76,10 @@ class SecondMovieAdapter(
                             )
                         fragment.findNavController().navigate(action)
                     }
-                    if (fragment.findNavController().currentDestination?.id == R.id.movieDetailsFragment) {
-                        val action = MovieDetailsFragmentDirections.actionMovieDetailsFragmentSelf(
-                            movie.id,
-                            movie.title
-                        )
-                        fragment.findNavController().navigate(action)
-                    }
                 } else {
                     if (fragment.findNavController().currentDestination?.id == R.id.viewAllFragment) {
                         val action =
                             ViewAllFragmentDirections.actionViewAllFragmentToTvShowDetailsFragment(
-                                movie.id,
-                                movie.name
-                            )
-                        fragment.findNavController().navigate(action)
-                    }
-                    if (fragment.findNavController().currentDestination?.id == R.id.tvShowDetailsFragment) {
-                        val action =
-                            TvShowDetailsFragmentDirections.actionTvShowDetailsFragmentSelf(
                                 movie.id,
                                 movie.name
                             )

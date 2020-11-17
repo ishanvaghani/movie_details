@@ -15,7 +15,9 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.reviewz.API.MovieApi
 import com.example.reviewz.Model.Movie
 import com.example.reviewz.R
+import com.example.reviewz.UI.Fragment.MovieDetailsFragmentDirections
 import com.example.reviewz.UI.Fragment.MovieFragmentDirections
+import com.example.reviewz.UI.Fragment.TvShowDetailsFragmentDirections
 import com.example.reviewz.UI.Fragment.TvShowFragmentDirections
 import com.example.reviewz.databinding.MovieItemBinding
 
@@ -64,19 +66,38 @@ class MovieAdapter(
 
             binding.root.setOnClickListener {
                 if (isMovie) {
-                    val action =
-                        MovieFragmentDirections.actionHomeFragmentToMovieDetailsFragment(
+                    if (fragment.findNavController().currentDestination?.id == R.id.homeFragment) {
+                        val action =
+                            MovieFragmentDirections.actionHomeFragmentToMovieDetailsFragment(
+                                movie.id,
+                                movie.title
+                            )
+                        fragment.findNavController().navigate(action)
+                    }
+                    if (fragment.findNavController().currentDestination?.id == R.id.movieDetailsFragment) {
+                        val action = MovieDetailsFragmentDirections.actionMovieDetailsFragmentSelf(
                             movie.id,
                             movie.title
                         )
-                    fragment.findNavController().navigate(action)
+                        fragment.findNavController().navigate(action)
+                    }
                 } else {
-                    val action =
-                        TvShowFragmentDirections.actionTvShowFragmentToTvShowDetailsFragment(
-                            movie.id,
-                            movie.name
-                        )
-                    fragment.findNavController().navigate(action)
+                    if(fragment.findNavController().currentDestination?.id == R.id.tvShowFragment) {
+                        val action =
+                            TvShowFragmentDirections.actionTvShowFragmentToTvShowDetailsFragment(
+                                movie.id,
+                                movie.name
+                            )
+                        fragment.findNavController().navigate(action)
+                    }
+                    if(fragment.findNavController().currentDestination?.id == R.id.tvShowDetailsFragment) {
+                        val action =
+                            TvShowDetailsFragmentDirections.actionTvShowDetailsFragmentSelf(
+                                movie.id,
+                                movie.name
+                            )
+                        fragment.findNavController().navigate(action)
+                    }
                 }
             }
         }
