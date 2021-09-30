@@ -117,4 +117,13 @@ class TvShowRepository @Inject constructor(
         ),
         pagingSourceFactory = { SearchPagingSource(query, movieApi) }
     ).liveData
+
+    fun getGenreTVShows(genreId: Int) = Pager(
+        config = PagingConfig(
+            pageSize = 20,
+            maxSize = 100,
+            enablePlaceholders = false
+        ),
+        pagingSourceFactory = { TVShowGenrePagingSource(genreId, movieApi) }
+    ).liveData
 }

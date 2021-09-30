@@ -21,7 +21,7 @@
     <string name="upcoming_movies">Upcoming Movies</string>
     <string name="popular_tv_shows">Popular Tv shows</string>
     <string name="top_rated_tv_shows">Top Rated Tv shows</string>
-    <string name="on_the_air_tv_shows">Popular Tv shows</string>
+    <string name="on_the_air_tv_shows">On The Air Tv shows</string>
     <string name="similar_tv_shows">Similar Tv shows</string>
     <string name="first_season_release_date">First Season Release Date:</string>
     <string name="last_season_release_date">Last Season Release Date:</string>
@@ -32,4 +32,6 @@
     <string name="seasons">Seasons</string>
     <string name="submit">Submit</string>
     <string name="retry">Retry</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

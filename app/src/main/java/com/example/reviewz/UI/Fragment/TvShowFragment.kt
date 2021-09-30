@@ -1,5 +1,6 @@
 package com.example.reviewz.UI.Fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.reviewz.Adapter.MovieAdapter
 import com.example.reviewz.Adapter.SliderAdapter
 import com.example.reviewz.R
@@ -18,9 +20,10 @@ import com.example.reviewz.ViewModel.TvShowViewModel
 import com.example.reviewz.databinding.FragmentTvShowBinding
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_tv_show.*
 
 @AndroidEntryPoint
-class TvShowFragment : Fragment() {
+class TvShowFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     private lateinit var slideAdapter: SliderAdapter
     private lateinit var tvPopularAdapter: MovieAdapter
@@ -38,8 +41,9 @@ class TvShowFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentTvShowBinding.inflate(inflater, container, false)
+        retainInstance = true
 
         toolbar = binding.toolbar
         toolbar.title = getString(R.string.tv_show)
@@ -51,7 +55,13 @@ class TvShowFragment : Fragment() {
         tvOnTheAirAdapter = MovieAdapter(this, false)
 
         bindUI()
+        initViewModel()
 
+        return binding.root
+    }
+
+    private fun initViewModel() {
+        binding.swipRefreshLayout.isRefreshing = true
         tvShowViewModel.apply {
             readyTvAiringToday()
             getTvAiringToday().observe(viewLifecycleOwner, {
@@ -72,12 +82,17 @@ class TvShowFragment : Fragment() {
                 tvTopRatedAdapter.submitData(viewLifecycleOwner.lifecycle, it)
             }
         }
-
-        return binding.root
+        binding.swipRefreshLayout.isRefreshing = false
     }
 
     private fun bindUI() {
         binding.apply {
+
+            swipRefreshLayout.apply {
+                setColorSchemeColors(Color.parseColor("#FFD740"))
+                setOnRefreshListener(this@TvShowFragment)
+            }
+
             imageSlider.apply {
                 setIndicatorAnimation(IndicatorAnimationType.WORM)
                 setSliderAdapter(slideAdapter)
@@ -126,7 +141,7 @@ class TvShowFragment : Fragment() {
 
         tvPopularAdapter.addLoadStateListener { loadState ->
             binding.apply {
-                progressBar.isVisible = loadState.source.refresh is LoadState.Loading
+                swipRefreshLayout.isRefreshing = loadState.source.refresh is LoadState.Loading
                 linearLayout.isVisible = loadState.source.refresh is LoadState.NotLoading
                 errorText.isVisible = loadState.source.refresh is LoadState.Error
                 retryButton.isVisible = loadState.source.refresh is LoadState.Error
@@ -140,6 +155,10 @@ class TvShowFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onRefresh() {
+        initViewModel()
     }
 
     override fun onDestroy() {

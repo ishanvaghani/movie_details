@@ -1,6 +1,5 @@
 package com.example.reviewz.ViewModel
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,9 +7,12 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.example.reviewz.Model.*
 import com.example.reviewz.Repository.MovieRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MovieViewModel @ViewModelInject constructor(private val movieRepository: MovieRepository) :
+@HiltViewModel
+class MovieViewModel @Inject constructor(private val movieRepository: MovieRepository) :
     ViewModel() {
 
     private var movieDetails: MutableLiveData<MovieDetails> = MutableLiveData()
@@ -43,6 +45,7 @@ class MovieViewModel @ViewModelInject constructor(private val movieRepository: M
     val upcomingMovies = movieRepository.getUpcomingMovies().cachedIn(viewModelScope)
     fun similarMovies(movieId: Int) =
         movieRepository.getSimilarMovies(movieId).cachedIn(viewModelScope)
+    fun getGenreMovies(genreId: Int) = movieRepository.getGenreMovies(genreId).cachedIn(viewModelScope)
 
     fun getMovieDetails(): LiveData<MovieDetails> = movieDetails
     fun getNowPlayingMovies(): LiveData<List<Movie>> = nowPlayingMovies

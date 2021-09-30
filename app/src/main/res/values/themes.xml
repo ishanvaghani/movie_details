@@ -12,5 +12,16 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+    
+    <style name="ReviewZTitle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ReviewZButton">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/purple_500</item>
     </style>
 </resources>

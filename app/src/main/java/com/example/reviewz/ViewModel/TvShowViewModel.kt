@@ -1,6 +1,5 @@
 package com.example.reviewz.ViewModel
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,9 +9,12 @@ import com.example.reviewz.Model.Movie
 import com.example.reviewz.Model.TvShowDetails
 import com.example.reviewz.Model.Video
 import com.example.reviewz.Repository.TvShowRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TvShowViewModel @ViewModelInject constructor(private val tvShowRepository: TvShowRepository) :
+@HiltViewModel
+class TvShowViewModel @Inject constructor(private val tvShowRepository: TvShowRepository) :
     ViewModel() {
 
     private var tvAiringToday: MutableLiveData<List<Movie>> = MutableLiveData()
@@ -45,6 +47,7 @@ class TvShowViewModel @ViewModelInject constructor(private val tvShowRepository:
     val onTheAirTvShow = tvShowRepository.getOnTheAirTvShow().cachedIn(viewModelScope)
     fun similarTvShow(tvShowId: Int) =
         tvShowRepository.getSimilarTvShow(tvShowId).cachedIn(viewModelScope)
+    fun getGenreTVShows(genreId: Int) = tvShowRepository.getGenreTVShows(genreId).cachedIn(viewModelScope)
 
     fun search(query: String) = tvShowRepository.getSearch(query).cachedIn(viewModelScope)
 

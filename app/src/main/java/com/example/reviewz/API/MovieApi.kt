@@ -8,7 +8,6 @@ interface MovieApi {
 
     companion object {
         private const val API_KEY = "1fcbeec0cdad8ddf7fe75e1a6cf41d18"
-        const val VIDEO_BASE_URL = "https://www.youtube.com/watch?v="
         const val PHOTO_BASE_URL = "https://image.tmdb.org/t/p/w342"
     }
 
@@ -33,6 +32,9 @@ interface MovieApi {
 
     @GET("movie/{movie_id}/videos?api_key=$API_KEY")
     suspend fun getMovieVideos(@Path("movie_id") id: Int): Response<VideoResponse>
+
+    @GET("discover/movie?api_key=$API_KEY")
+    suspend fun getGenreMovies(@Query("with_genres") genreId: Int, @Query("page") page: Int) : MovieResponse
 
     //Tv Shows
     @GET("tv/airing_today?api_key=$API_KEY")
@@ -61,4 +63,7 @@ interface MovieApi {
 
     @GET("search/multi?api_key=$API_KEY")
     suspend fun getSearch(@Query("query") query: String, @Query("page") page: Int): MovieResponse
+
+    @GET("discover/tv?api_key=$API_KEY")
+    suspend fun getGenreTVShows(@Query("with_genres") genreId: Int, @Query("page") page: Int) : MovieResponse
 }

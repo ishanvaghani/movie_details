@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!--    Padding-->
+    <dimen name="default_padding">20dp</dimen>
+    <dimen name="default_padding_half">10dp</dimen>
+    <dimen name="default_padding_fourth">5dp</dimen>
+
+<!--    Corner Radius-->
+    <dimen name="corner_radius">10dp</dimen>
+</resources>

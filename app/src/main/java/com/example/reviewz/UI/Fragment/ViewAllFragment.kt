@@ -38,7 +38,7 @@ class ViewAllFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentViewAllBinding.inflate(layoutInflater, container, false)
 
         toolbar = binding.toolbar

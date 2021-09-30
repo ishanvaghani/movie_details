@@ -1,9 +1,6 @@
 package com.example.reviewz.Adapter
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -27,7 +24,6 @@ class MovieAdapter(
 ) :
     PagingDataAdapter<Movie, MovieAdapter.MovieViewHolder>(COMPARATOR) {
 
-    var duration: Long = 500
     private var onAttach = true
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -38,7 +34,6 @@ class MovieAdapter(
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = getItem(position)
         holder.bind(movie!!)
-        setAnimation(holder.itemView, position)
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
@@ -101,23 +96,6 @@ class MovieAdapter(
                 }
             }
         }
-    }
-
-    private fun setAnimation(itemView: View, position: Int) {
-        var i = position
-        if (!onAttach) {
-            i = -1
-        }
-        val isNotFirstItem = i == -1
-        i++
-        itemView.alpha = 0f
-        val animatorSet = AnimatorSet()
-        val animator = ObjectAnimator.ofFloat(itemView, "alpha", 0f, 0.5f, 1.0f)
-        ObjectAnimator.ofFloat(itemView, "alpha", 0f).start()
-        animator.startDelay = if (isNotFirstItem) duration / 2 else i * duration / 3
-        animator.duration = 500
-        animatorSet.play(animator)
-        animator.start()
     }
 
     companion object {

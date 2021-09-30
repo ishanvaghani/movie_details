@@ -60,12 +60,12 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.example.reviewz.GridRecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="5dp"
-        android:layoutAnimation="@anim/layout_grid_animation"
+        android:clipToPadding="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

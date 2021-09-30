@@ -25,6 +25,7 @@ class SplashActivity : AppCompatActivity() {
         lifecycleScope.launch {
             delay(2000)
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            overridePendingTransition(0, 0)
             finish()
         }
     }

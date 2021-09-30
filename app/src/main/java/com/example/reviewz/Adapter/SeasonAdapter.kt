@@ -1,9 +1,6 @@
 package com.example.reviewz.Adapter
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +16,6 @@ class SeasonAdapter(
     private val seasonList: List<TvShowDetails.Season>
 ) : RecyclerView.Adapter<SeasonAdapter.SeasonViewHolder>() {
 
-    var duration: Long = 500
     private var onAttach = true
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SeasonViewHolder {
@@ -30,7 +26,6 @@ class SeasonAdapter(
     override fun onBindViewHolder(holder: SeasonViewHolder, position: Int) {
         val season = seasonList[position]
         holder.bind(season)
-        setAnimation(holder.itemView, position)
     }
 
     override fun getItemCount(): Int = seasonList.size
@@ -62,22 +57,5 @@ class SeasonAdapter(
                 seasonName.text = season.name
             }
         }
-    }
-
-    private fun setAnimation(itemView: View, position: Int) {
-        var i = position
-        if (!onAttach) {
-            i = -1
-        }
-        val isNotFirstItem = i == -1
-        i++
-        itemView.alpha = 0f
-        val animatorSet = AnimatorSet()
-        val animator = ObjectAnimator.ofFloat(itemView, "alpha", 0f, 0.5f, 1.0f)
-        ObjectAnimator.ofFloat(itemView, "alpha", 0f).start()
-        animator.startDelay = if (isNotFirstItem) duration / 2 else i * duration / 3
-        animator.duration = 500
-        animatorSet.play(animator)
-        animator.start()
     }
 }

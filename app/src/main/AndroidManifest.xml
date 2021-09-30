@@ -6,6 +6,12 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
+    <queries>
+        <intent>
+            <action android:name="com.google.android.youtube.api.service.START" />
+        </intent>
+    </queries>
+
     <application
         android:name="com.example.reviewz.BaseApp"
         android:allowBackup="true"
@@ -14,15 +20,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieDetails">
-        <activity android:name="com.example.reviewz.UI.SplashActivity">
+        <activity
+            android:name="com.example.reviewz.UI.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.reviewz.UI.VideoActivity" />
-        <activity android:name="com.example.reviewz.UI.MainActivity" />
+        <activity
+            android:name="com.example.reviewz.UI.VideoActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.example.reviewz.UI.MainActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

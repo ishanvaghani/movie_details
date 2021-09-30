@@ -8,10 +8,7 @@ import com.example.reviewz.*
 import com.example.reviewz.API.ApiBuilder
 import com.example.reviewz.API.MovieApi
 import com.example.reviewz.Model.*
-import com.example.reviewz.Pagination.PopularMoviePagingSource
-import com.example.reviewz.Pagination.SimilarMoviePagingSource
-import com.example.reviewz.Pagination.TopRatedMoviePagingSource
-import com.example.reviewz.Pagination.UpcomingMoviePagingSource
+import com.example.reviewz.Pagination.*
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -111,6 +108,15 @@ class MovieRepository @Inject constructor(
             enablePlaceholders = false
         ),
         pagingSourceFactory = { SimilarMoviePagingSource(movieId, movieApi) }
+    ).liveData
+
+    fun getGenreMovies(genreId: Int) = Pager(
+        config = PagingConfig(
+            pageSize = 20,
+            maxSize = 100,
+            enablePlaceholders = false
+        ),
+        pagingSourceFactory = { MovieGenrePagingSource(genreId, movieApi) }
     ).liveData
 
 }

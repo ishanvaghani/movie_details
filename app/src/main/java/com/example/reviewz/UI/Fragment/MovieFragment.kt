@@ -1,6 +1,8 @@
 package com.example.reviewz.UI.Fragment
 
+import android.graphics.Color
 import android.os.Bundle
+import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.reviewz.Adapter.MovieAdapter
 import com.example.reviewz.Adapter.SliderAdapter
 import com.example.reviewz.R
@@ -21,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class MovieFragment : Fragment() {
+class MovieFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     private var _binding: FragmentMovieBinding? = null
     private val binding get() = _binding!!
@@ -39,8 +42,9 @@ class MovieFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMovieBinding.inflate(inflater, container, false)
+        retainInstance = true
 
         toolbar = binding.toolbar
         toolbar.title = getString(R.string.movie)
@@ -52,7 +56,13 @@ class MovieFragment : Fragment() {
         upcomingMoviesAdapter = MovieAdapter(this, true)
 
         bindUI()
+        initViewModel()
 
+        return binding.root
+    }
+
+    private fun initViewModel() {
+        binding.swipRefreshLayout.isRefreshing = true
         movieViewModel.apply {
             readyNowPlayingMovies()
             getNowPlayingMovies().observe(viewLifecycleOwner, {
@@ -73,12 +83,18 @@ class MovieFragment : Fragment() {
                 upcomingMoviesAdapter.submitData(viewLifecycleOwner.lifecycle, it)
             }
         }
-
-        return binding.root
+        binding.swipRefreshLayout.isRefreshing = false
     }
 
     private fun bindUI() {
+
         binding.apply {
+
+            swipRefreshLayout.apply {
+                setColorSchemeColors(Color.parseColor("#FFD740"))
+                setOnRefreshListener(this@MovieFragment)
+            }
+
             imageSlider.apply {
                 setIndicatorAnimation(IndicatorAnimationType.WORM)
                 setSliderAdapter(slideAdapter)
@@ -127,7 +143,7 @@ class MovieFragment : Fragment() {
 
         popularMovieAdapter.addLoadStateListener { loadState ->
             binding.apply {
-                progressBar.isVisible = loadState.source.refresh is LoadState.Loading
+                swipRefreshLayout.isRefreshing = loadState.source.refresh is LoadState.Loading
                 linearLayout.isVisible = loadState.source.refresh is LoadState.NotLoading
                 errorText.isVisible = loadState.source.refresh is LoadState.Error
                 retryButton.isVisible = loadState.source.refresh is LoadState.Error
@@ -146,5 +162,9 @@ class MovieFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onRefresh() {
+        initViewModel()
     }
 }

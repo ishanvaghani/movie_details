@@ -120,10 +120,7 @@
         android:label="activity_video"
         tools:layout="@layout/activity_video">
         <argument
-            android:name="id"
-            app:argType="integer" />
-        <argument
-            android:name="type"
+            android:name="key"
             app:argType="string" />
     </activity>
     <fragment

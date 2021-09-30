@@ -12,7 +12,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.reviewz.API.MovieApi
@@ -39,6 +38,8 @@ class MovieDetailsFragment : Fragment() {
     private lateinit var similarAdapter: MovieAdapter
     private lateinit var toolbar: Toolbar
 
+    private lateinit var key: String
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -59,6 +60,7 @@ class MovieDetailsFragment : Fragment() {
                 if (it != null) {
                     bindWithUi(it)
                     showData()
+                    readyTrailer(it.id)
                 } else {
                     showError()
                 }
@@ -70,6 +72,20 @@ class MovieDetailsFragment : Fragment() {
             }
         }
         return binding.root
+    }
+
+    private fun readyTrailer(id: Int) {
+        movieViewModel.readyMovieVideos(id)
+        movieViewModel.getMovieVideos().observe(viewLifecycleOwner, {
+            if(it != null && it.isNotEmpty()) {
+                key = if(it.size == 1) {
+                    it[0].key
+                } else {
+                    it[it.size - 1].key
+                }
+                binding.playVideo.visibility = View.VISIBLE
+            }
+        })
     }
 
     private fun bindWithUi(movieDetails: MovieDetails) {
@@ -110,11 +126,7 @@ class MovieDetailsFragment : Fragment() {
 
             playVideo.setOnClickListener {
                 val action =
-                    MovieDetailsFragmentDirections.actionMovieDetailsFragmentToVideoActivity(
-                        movieDetails.id, getString(
-                            R.string.movie
-                        )
-                    )
+                    MovieDetailsFragmentDirections.actionMovieDetailsFragmentToVideoActivity(key)
                 findNavController().navigate(action)
             }
         }
